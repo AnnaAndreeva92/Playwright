@@ -12,6 +12,7 @@ test('validTest', async ({ page }) => {
   await page.locator('[placeholder="Пароль"]').fill(user.password);
   await page.locator('[data-testid="login-submit-btn"]').click();
   await expect(page).toHaveURL('https://netology.ru/profile');
+  await browser.close();
 });
 
 test('noValidTest', async ({ page }) => {
@@ -23,5 +24,7 @@ test('noValidTest', async ({ page }) => {
   await page.locator('[placeholder="Пароль"]').click();
   await page.locator('[placeholder="Пароль"]').fill(user.noValidPassword);
   await page.locator('[data-testid="login-submit-btn"]').click();
-  await expect(page).toHaveURL('https://netology.ru/profile');
+  await expect(page.locator('._-packages-ui-kit-components-v2-Input--error--1QFF1  div'))
+      .toHaveText('Вы ввели неправильно логин или пароль');
+      await browser.close();
 });
